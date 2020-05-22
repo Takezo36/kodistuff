@@ -1,0 +1,180 @@
+# Kodi Media Center language file
+# Addon Name: AppLauncher
+# Addon id: plugin.program.applauncher
+# Addon Provider: Takezo36
+
+"Project-Id-Version: XBMC-Addons\n"
+"Report-Msgid-Bugs-To: benni36@gmx.de\n"
+"POT-Creation-Date: 2015-09-21 11:01+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: en_US\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+
+
+msgctxt "Addon Summary"
+msgid "Plugin for YouTube"
+msgstr ""
+
+msgctxt "Addon Description"
+msgid "YouTube is a one of the biggest video-sharing websites of the world."
+msgstr ""
+
+msgctxt "#35000"
+msgid "Create custom entry"
+msgstr ""
+
+msgctxt "#35001"
+msgid "Create custom folder"
+msgstr ""
+
+msgctxt "#35002"
+msgid "Create custom variant"
+msgstr ""
+
+msgctxt "#35003"
+msgid "Add to custom entries"
+msgstr ""
+
+msgctxt "#35004"
+msgid "Remove from custom entries"
+msgstr ""
+
+msgctxt "#35005"
+msgid "Move entry to folder"
+msgstr ""
+
+msgctxt "#35006"
+msgid "Force refresh"
+msgstr ""
+
+msgctxt "#35007"
+msgid "Set custom icon"
+msgstr ""
+
+msgctxt "#35008"
+msgid "Set custom background"
+msgstr ""
+
+msgctxt "#35009"
+msgid "Unset custom icon"
+msgstr ""
+
+msgctxt "#35010"
+msgid "Unset custom background"
+msgstr ""
+
+msgctxt "#35011"
+msgid "Select icon"
+msgstr ""
+
+msgctxt "#35012"
+msgid "Select background"
+msgstr ""
+
+msgctxt "#35013"
+msgid "Select Execution File"
+msgstr ""
+
+msgctxt "#35014"
+msgid "Add parameters"
+msgstr ""
+
+msgctxt "#35015"
+msgid "Set name"
+msgstr ""
+
+msgctxt "#35016"
+msgid "Add folder"
+msgstr ""
+
+msgctxt "#35017"
+msgid "Move entry to folder"
+msgstr ""
+
+msgctxt "#35018"
+msgid "Failed to add folder"
+msgstr ""
+
+msgctxt "#35019"
+msgid "In the path for the new folder is a part which is an app name. This is invalid"
+msgstr ""
+
+msgctxt "#35020"
+msgid "You need to have PowerShell installed at least version 2.0"
+msgstr ""
+
+msgctxt "#35021"
+msgid "Please download and install it. For more info go to"
+msgstr ""
+
+msgctxt "#35022"
+msgid " (this should be in your clipboard now)"
+msgstr ""
+
+msgctxt "#35023"
+msgid "Linux has a lot of icons as SVGs. Unfortunately Kodi doesn't support SVG."
+msgstr ""
+
+msgctxt "#35024"
+msgid "Hence you'll need a SVG to PNG converter to see more icons. The default is rsvg-convert which in Ubuntu is in the librsvg2-bin package."
+msgstr ""
+
+msgctxt "#35025"
+msgid "Either install this or install an alternative and configure the execution string in the settings. (this message will not appear again)"
+msgstr ""
+
+#settings
+
+msgctxt "#36000"
+msgid "General"
+msgstr ""
+
+msgctxt "#36001"
+msgid "Minimize Kodi when starting an app and maximize after the app has closed"
+msgstr ""
+
+msgctxt "#36002"
+msgid "Close Kodi when starting an app and restart it after the app is closed"
+msgstr ""
+
+msgctxt "#36003"
+msgid "Don't show your OS provided app listing"
+msgstr ""
+
+msgctxt "#36004"
+msgid "Close Kodi after a started app has finished. This can be used combined with the minimize option if you have a daemon which restarts Kodi anyway."
+msgstr ""
+
+msgctxt "#36005"
+msgid "SVG2PNG executable"
+msgstr ""
+
+msgctxt "#36006"
+msgid "Virtual directory seperator used internally. Select either a forbidden character in file system or a weird combination of characters"
+msgstr ""
+
+msgctxt "#36007"
+msgid "Wait Time to catch UWP process. Tweak this setting if you have problems with the close and restart feature in combination with store apps"
+msgstr ""
+
+msgctxt "#36008"
+msgid "Ignore folder structure and show all OS apps at once"
+msgstr ""
+
+msgctxt "#36009"
+msgid "Cache timeout"
+msgstr ""
+
+msgctxt "#36010"
+msgid "Hide custom folder entry"
+msgstr ""
+
+msgctxt "#37000"
+msgid "Add game"
+msgstr ""

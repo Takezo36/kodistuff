@@ -1,0 +1,38 @@
+{
+	"0": {
+		"plugin:\\/\\/plugin\\.video\\.southpark_unofficial\\/.*(season-(0*)(\\d+)).*": [
+			[{
+				"type": "plugin",
+				"path": "'plugin://plugin.video.southpark_unofficial/?mode=sp%3aseason&url=' + match.group(3)"
+			}]
+		],
+		"plugin:\\/\\/plugin\\.video\\.twitch\\/\\?video_id=[v]*(\\d+).*&mode=play.*": [
+			[{
+					"type": "get",
+					"path": "'https://api.twitch.tv/helix/videos?id=' + match.group(1)",
+					"headers": {
+						"Client-ID": "xbmcaddon.Addon(\"plugin.video.twitch\").getSettingString(\"private_oauth_clientid\")"
+					},
+					"result": {
+						"a": "data.0.user_id",
+						"b": "data.0.type"
+					}
+				},
+				{
+					"type": "plugin",
+					"path": "'plugin://plugin.video.twitch/?broadcast_type=' + result[0]['b'] + '&channel_id='+result[0]['a']+'&game=None&mode=channel_video_list'"
+				}
+			]
+		],
+		"plugin:\\/\\/plugin\\.video\\.twitch\\/\\?channel_id=(\\d+).*&mode=play.*": [
+			[{
+				"type": "plugin",
+				"path": "'plugin://plugin.video.twitch/?broadcast_type=archive&channel_id='+match.group(1)+'&game=None&mode=channel_video_list'"
+			}],
+			[{
+				"type": "plugin",
+				"path": "'plugin://plugin.video.twitch/?broadcast_type=upload&channel_id='+match.group(1)+'&game=None&mode=channel_video_list'"
+			}]
+		]
+	}
+}

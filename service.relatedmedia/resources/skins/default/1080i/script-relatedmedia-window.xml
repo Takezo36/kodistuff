@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol always="true">3012</defaultcontrol>
+	<onload>Dialog.Close(fullscreeninfo,true)</onload>
+	<onload>Dialog.Close(videoosd,true)</onload>
+	<controls>
+		<control type="group">
+			<control type="group">
+				<bottom>181</bottom>
+				<height>300</height>
+				<width>1920</width>
+				<control type="list" id="50111">
+					<description>My first list container</description>
+					<left>0</left>
+					<top>0</top>
+					<enable>true</enable>
+					<height>250</height>
+					<visible>true</visible>
+					<onup>200</onup>
+					<ondown>87</ondown>
+					<viewtype label="3D list">list</viewtype>
+					<orientation>horizontal</orientation>
+					<pagecontrol>25</pagecontrol>
+					<autoscroll>false</autoscroll>
+					<scrolltime tween="sine" easing="out">200</scrolltime>
+					<itemlayout width="300" height="240">
+						<control type="image">
+							<left>5</left>
+							<top>5</top>
+							<width>290</width>
+							<height>170</height>
+							<texture>$INFO[ListItem.Thumb]</texture>
+						</control>
+						<control type="label">
+							<left>5</left>
+							<top>181</top>
+							<width>290</width>
+							<height>59</height>
+							<aligny>center</aligny>
+							<align>left</align>
+							<autoscroll>true</autoscroll>
+							<label>$INFO[ListItem.Label]</label>
+						</control>
+					</itemlayout>
+					<focusedlayout width="300" height="240">
+						<control type="image">
+							<width>300</width>
+							<height>240</height>
+							<left>0</left>
+							<top>0</top>
+							<visible>Control.HasFocus(50111)</visible>
+							<texture colordiffuse="button_focus">lists/focus.png</texture>
+						</control>
+						<control type="image">
+							<left>5</left>
+							<top>5</top>
+							<width>290</width>
+							<height>170</height>
+							<texture>$INFO[ListItem.Thumb]</texture>
+						</control>
+						<control type="label">
+							<left>5</left>
+							<top>181</top>
+							<width>290</width>
+							<height>59</height>
+							<font>font13</font>
+							<aligny>center</aligny>
+							<selectedcolor>green</selectedcolor>
+							<align>left</align>
+							<label>$INFO[ListItem.Label]</label>
+						</control>
+					</focusedlayout>
+				</control>
+			</control>
+		</control>
+	</controls>
+</window>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings>
+    <category label="36000">
+        <setting label="36001" type="bool" id="minimize" default="false"/>
+        <setting label="36002" type="bool" id="killkodi" default="false"/>
+        <setting label="36003" type="bool" id="dontshowstart" default="false"/>
+		<setting type="bool" id="dontshowcustomfolders" default="false" />
+	<setting label="36008" type="bool" id="flattenapps" default="false"/>
+	<setting label="36009" type="number" id="cachetime" default="8760"/>
+        <setting label="36006" type="text" id="dirsep" default="$%$"/>
+    </category>
+    <category label="Linux">
+        <setting label="" type="bool" id="showsvgmsg" default="true" visible="false"/>
+        <setting label="36005" type="text" id="svgpath" default="rsvg-convert -w 128 -h 128 -o %output %input"/>
+    </category>
+    <category label="Windows">
+		<setting label="36007" type="number" id="waittimeuwp" default="1"/>
+    </category>
+</settings>

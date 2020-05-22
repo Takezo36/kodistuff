@@ -1,0 +1,164 @@
+# Kodi Media Center language file
+# Addon Name: AppLauncher
+# Addon id: plugin.program.applauncher
+# Addon Provider: Takezo36
+
+"Project-Id-Version: XBMC-Addons\n"
+"Report-Msgid-Bugs-To: benni36@gmx.de\n"
+"POT-Creation-Date: 2015-09-21 11:01+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de_de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+
+
+msgctxt "Addon Summary"
+msgid "Plugin for YouTube"
+msgstr ""
+
+msgctxt "Addon Description"
+msgid "YouTube is a one of the biggest video-sharing websites of the world."
+msgstr ""
+
+msgctxt "#35000"
+msgid "Erstellen einen benutzerdefinierten Eintrag"
+msgstr ""
+
+msgctxt "#35001"
+msgid "Erstellen eines benutzerdefinierten Ordners"
+msgstr ""
+
+msgctxt "#35002"
+msgid "Benutzerdefinierte Variante erstellen"
+msgstr ""
+
+msgctxt "#35003"
+msgid "Zu benutzerdefinierten Einträgen hinzufügen"
+msgstr ""
+
+msgctxt "#35004"
+msgid "Von benutzerdefinierten Einträgen entfernen"
+msgstr ""
+
+msgctxt "#35005"
+msgid "Eintrag in Ordner verschieben"
+msgstr ""
+
+msgctxt "#35006"
+msgid "Aktualisierung erzwingen"
+msgstr ""
+
+msgctxt "#35007"
+msgid "Benutzerdefiniertes Symbol festlegen"
+msgstr ""
+
+msgctxt "#35008"
+msgid "Benutzerdefinierten Hintergrund festlegen"
+msgstr ""
+
+msgctxt "#35009"
+msgid "Benutzerdefiniertes Symbol entfernen"
+msgstr ""
+
+msgctxt "#35010"
+msgid "Benutzerdefinierten Hintergrund entfernen"
+msgstr ""
+
+msgctxt "#35011"
+msgid "Symbol auswählen"
+msgstr ""
+
+msgctxt "#35012"
+msgid "Hintergrund auswählen"
+msgstr ""
+
+msgctxt "#35013"
+msgid "Ausführungsdatei auswählen"
+msgstr ""
+
+msgctxt "#35014"
+msgid "Parameter hinzufügen"
+msgstr ""
+
+msgctxt "#35015"
+msgid "Name eingeben"
+msgstr ""
+
+msgctxt "#35020"
+msgid "Sie müssen mindestens PowerShell 2.0 installiert haben."
+msgstr ""
+
+msgctxt "#35021"
+msgid "Bitte installieren sie es. Für mehr infos gehen sie zu"
+msgstr ""
+
+msgctxt "#35022"
+msgid " (Das sollte jetzt in ihrer Zwischenablage sein)"
+msgstr ""
+
+msgctxt "#35023"
+msgid "Linux viele Icons als SVGs. Leider unterstützt Kodi kein SVG."
+msgstr ""
+
+msgctxt "#35024"
+msgid "Daher benötigen sie einen SVG zu PNG Umwandler. Das Standardprogramm ist rsvg-convert welches in Ubuntu im librsvg2-bin Packet ist."
+msgstr ""
+
+msgctxt "#35025"
+msgid "Entweder installieren sie das oder konfigurieren eine alternative in den Einstellungen. (diese Nachricht taucht nicht wieder auf)"
+msgstr ""
+#settings
+
+msgctxt "#36000"
+msgid "Allgemeines"
+msgstr ""
+
+msgctxt "#36001"
+msgid "Kodi beim starten einer App minimieren und nach dem Schließen der App wieder maximieren"
+msgstr ""
+
+msgctxt "#36002"
+msgid "Kodi beim starten einer App schließen und nach dem Schließen der App neu starten"
+msgstr ""
+
+msgctxt "#36003"
+msgid "Apps die vom Betriebssystem bereitgestellt sind nicht anzeigen"
+msgstr ""
+
+msgctxt "#36004"
+msgid "Kodi schließen, nachdem eine gestartete App beendet wurde. Dies kann in Kombination mit der Minimieren-Option verwendet werden, wenn Sie einen Daemon haben, der Kodi trotzdem neu startet."
+msgstr ""
+
+msgctxt "#36005"
+msgid "SVG2PNG Programm"
+msgstr ""
+
+msgctxt "#36006"
+msgid "Virtueller Verzeichnis Seperator der intern genutzt wird. Entweder ein im Dateisystem verbotener Character oder eine wilde Kombination von Characteren"
+msgstr ""
+
+msgctxt "#36007"
+msgid "Wartezeit um einen UWP Prozess zu finden. Spielen sie mit dieser Einstellung wenn sie Probleme mit der Kodi schließen und wieder starten Option in Kombination mit Store Apps haben"
+msgstr ""
+
+msgctxt "#36008"
+msgid "Ordnerstruktur ignorieren und alle OS Apps aufeinmal zeigen"
+msgstr ""
+
+msgctxt "#36009"
+msgid "Cache timeout"
+msgstr ""
+
+msgctxt "#36010"
+msgid "Custom Ordner Eintrag verstecken"
+msgstr ""
+
+msgctxt "#37000"
+msgid "Spiel hinzufügen"
+msgstr ""
+
