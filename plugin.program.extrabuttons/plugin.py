@@ -10,7 +10,6 @@ import xbmcgui
 import xbmcplugin
 import xbmcaddon
 import simplejson as json
-import resources.lib.AppLister as AppLister
 import resources.lib.YoutubeProvider as YoutubeProvider
 #import resources.lib.TwitchProvider as TwitchProvider
 #import resources.lib.TvShowProvider as TvShowProvider
@@ -34,19 +33,28 @@ ADDON_VERSION = ADDON.getAddonInfo('version')
 ADDON_ID = ADDON.getAddonInfo('id')
 ADDON_USER_DATA_FOLDER = xbmc.translatePath("special://profile/addon_data/"+ADDON_ID)
 player = xbmc.Player()
-providers = {}
+
 def setupProviders():
-  global providers
+  providers = {}
   #provders['plugin:\/\/plugin\.video\.twitch\/\?video_id=[v]*(\d+).*&mode=play.*'] = TwitchProvider
-  provders['plugin:\/\/plugin\.video\.youtube\/play/\?video_id=(\w+)'] = YoutubeProvider
+  providers['plugin:\/\/plugin\.video\.youtube\/play/\?video_id=(\w+)'] = YoutubeProvider
+  return providers
   
+def getProviderForAction(provider):
+  temp = 'plugin://' + provider
+  length = len(temp)
+  for key,value in providers.items():
+    if(key[:length] == temp):
+      return value.Provider(match)
 def getProvider(mediaInfo):
+  print('mediainfo ' + str(mediaInfo))
   if(mediaInfo['type']=='plugin'):
     global providers
+    print('providers ' + str(providers))
     for key,value in providers.items():
       match = re.search(key, mediaInfo['pluginpath'])
       if(match):
-        return value(match)
+        return value.Provider(match)
   elif(mediaInfo['type']=='episode'):
     return TvShowProvider(mediaInfo['dbid'])
   elif(mediaInfo['type']=='movie'):
@@ -80,6 +88,8 @@ def getButtons():
 def passToSkin(listItems):
   global handle
   global params
+  print('Passing Listitemsssssssss')
+  print(str(listItems))
   result = xbmcplugin.addDirectoryItems(handle=handle,
                                      items=[(i.getProperty("path"), i, False) for i in listItems],
                                      totalItems=len(listItems))
@@ -99,6 +109,11 @@ def parseArgs():
   return params
 if (__name__ == "__main__"):
   params = parseArgs()
-  getButtons()
+  providers = setupProviders()
+  if('action' in params.keys()):
+    action = params['action']
+    getProviderForAction(params['provider']).action(action, params)
+  else:
+    getButtons()
   xbmc.log('finished')
 
