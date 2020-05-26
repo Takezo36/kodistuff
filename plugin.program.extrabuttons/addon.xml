@@ -11,6 +11,7 @@
 	<extension point="xbmc.python.pluginsource" library="plugin.py">
 		<provides>executable</provides>
 	</extension>
+	<extension point="xbmc.service" library="service.py"/>
 	<extension point="xbmc.addon.metadata">
 		<summary lang="en">app launcher for os apps</summary>
 		<description lang="en">app launcher showing app structure provided by the OS. Meaning Startmenu in Windows or .desktop files in linux</description>

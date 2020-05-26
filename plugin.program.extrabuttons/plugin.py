@@ -10,14 +10,11 @@ import xbmcgui
 import xbmcplugin
 import xbmcaddon
 import simplejson as json
-import resources.lib.YoutubeProvider as YoutubeProvider
-#import resources.lib.TwitchProvider as TwitchProvider
-#import resources.lib.TvShowProvider as TvShowProvider
-#import resources.lib.MovieProvider as MovieProvider
+from resources.lib.Commons import setupProviders
+from resources.lib.Commons import createListItem
+from resources.lib.Commons import CACHE_ID
+from resources.lib.Commons import CACHE_TIME
 
-import re
-import subprocess
-import urllib
 
 
 from distutils.util import strtobool
@@ -28,40 +25,21 @@ except:
 
  
 
-ADDON = xbmcaddon.Addon()
-ADDON_VERSION = ADDON.getAddonInfo('version')
-ADDON_ID = ADDON.getAddonInfo('id')
-ADDON_USER_DATA_FOLDER = xbmc.translatePath("special://profile/addon_data/"+ADDON_ID)
-player = xbmc.Player()
 
-def setupProviders():
-  providers = {}
-  #provders['plugin:\/\/plugin\.video\.twitch\/\?video_id=[v]*(\d+).*&mode=play.*'] = TwitchProvider
-  providers['plugin:\/\/plugin\.video\.youtube\/play/\?video_id=(\w+)'] = YoutubeProvider
-  return providers
   
 def getProviderForAction(provider):
-  temp = 'plugin://' + provider
+  global providers
+  print("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY")
+  print(str(providers))
+  temp = 'plugin:\/\/' + provider.replace('.','\.')
   length = len(temp)
+  print(temp)
   for key,value in providers.items():
     if(key[:length] == temp):
-      return value.Provider(match)
-def getProvider(mediaInfo):
-  print('mediainfo ' + str(mediaInfo))
-  if(mediaInfo['type']=='plugin'):
-    global providers
-    print('providers ' + str(providers))
-    for key,value in providers.items():
-      match = re.search(key, mediaInfo['pluginpath'])
-      if(match):
-        return value.Provider(match)
-  elif(mediaInfo['type']=='episode'):
-    return TvShowProvider(mediaInfo['dbid'])
-  elif(mediaInfo['type']=='movie'):
-    return MovieProvider(mediaInfo['dbid'])
+      return value.Provider()
 def getRunningmediaInfoInfo():
   item = {}
-  global player
+  player = xbmc.Player()
   if(player.isPlayingVideo()):
     mediaType = xbmc.Player().getVideoInfoTag().getMediaType()
     if("episode" == mediaType or "movie" == mediaType):
@@ -80,11 +58,22 @@ def getRunningmediaInfoInfo():
     item['type'] = "plugin"
     item['pluginpath'] = xbmc.getInfoLabel('Player.Filenameandpath')
   return item
-
+def getListItems(buttons):
+  count = 0
+  result = []
+  for button in buttons:
+    result.append(createListItem(button['label'], button['path'], button['logo'], count))
+    count += 1
+  return result
 def getButtons():
   mediaInfo = getRunningmediaInfoInfo()
-  provider = getProvider(mediaInfo)
-  passToSkin(provider.getButtons())
+  cache = StorageServer.StorageServer(CACHE_ID, CACHE_TIME)
+  cacheId = hash(frozenset(currentlyPlaying.items()))
+  jsonStr = None
+  while not jsonStr:
+    jsonStr = cache.get(cacheId)
+  buttons = json.loads(jsonStr)
+  passToSkin(getListItems(buttons))
 def passToSkin(listItems):
   global handle
   global params
