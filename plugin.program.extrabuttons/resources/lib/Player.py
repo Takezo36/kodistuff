@@ -2,13 +2,13 @@
 
 # Copyright (C) 2018 - Benjamin Hebgen <mail>
 # This program is Free Software see LICENSE file for details
-
+import xbmc
 from xbmc import Player
-from Management import Management
-from Commons import setupProviders
-from Commons import CACHE_ID
-from Commons import CACHE_TIME
+from .Commons import setupProviders
+from .Commons import CACHE_ID
+from .Commons import CACHE_TIME
 import simplejson as json
+import re
 try:
    import StorageServer
 except:
@@ -21,11 +21,17 @@ class MyPlayer(Player):
     self.cache = StorageServer.StorageServer(CACHE_ID, CACHE_TIME)
     
   def onPlayBackStarted(self):  # pylint: disable=invalid-name
+    print('ddddddddddddddddddddddddddddddddd')
     currentlyPlaying = self.getCurrentlyPlaying()
-    self.cacheId = hash(frozenset(currentlyPlaying.items()))
-    if(not self.cache.get(self.cacheId)):
-      provider = self.getProvider(currentlyPlaying)
-      self.storeButtons(currentlyPlaying, provider)
+    print('ddddddddddddddddddddddddddddddddd: ' + str(currentlyPlaying))
+    self.cacheId = str(hash(frozenset(currentlyPlaying.items())))
+    print('eeeeeeeeeeeeeeeeeeeeeeeeee: ' + str(self.cacheId))
+    #test = self.cache.get(self.cacheId)
+    #print('ssssssssssssssssssssssss: ' + str(test))  
+    #if(not test):
+    provider = self.getProvider(currentlyPlaying)
+    print('fffffffffffffffffffffffff: ' + str(self.cacheId))
+    self.storeButtons(currentlyPlaying, provider)
   def getCurrentlyPlaying(self):
     item = {}
     if(self.isPlayingVideo()):
@@ -68,4 +74,7 @@ class MyPlayer(Player):
       return MovieProvider(mediaInfo['dbid'])
   def storeButtons(self, currentlyPlaying, provider):
     buttons = provider.getButtons()
-    self.cache.set(self.cacheId, json.dumps(buttons))
+    toStore = json.dumps(buttons)
+    print('toStore: ' + toStore)
+    print('cacheId: ' + self.cacheId)
+    self.cache.set(self.cacheId, toStore)

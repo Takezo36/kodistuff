@@ -1,6 +1,7 @@
 from __future__ import absolute_import, division, unicode_literals
+import xbmc
 from xbmc import Monitor
-from Player import MyPlayer
+from .Player import MyPlayer
 
 
 class MyMonitor(Monitor):
