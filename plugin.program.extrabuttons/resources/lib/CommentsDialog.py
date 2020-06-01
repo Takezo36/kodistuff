@@ -1,3 +1,4 @@
+import xbmc
 import xbmcgui
 import xbmcaddon
 class CommentsDialog(xbmcgui.WindowXMLDialog):
@@ -5,7 +6,6 @@ class CommentsDialog(xbmcgui.WindowXMLDialog):
     if('replyFunction' in kvargs):
       self.setProperty('canReply', 'true')
       self.replyFunction = kvargs['replyFunction']
-    print("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
     count = 0
     self.CANCEL_ID = 5555
     self.REPLY_ID = 6666
@@ -14,6 +14,11 @@ class CommentsDialog(xbmcgui.WindowXMLDialog):
     print(str(self.comments))
     self.currentPath = None
     xbmcgui.WindowXMLDialog.__init__(self, *args, **kvargs)
+    
+  def onInit(self):
+    print("YYYYYYYYYYYYYYYYYYYYYYYYYY")
+    print(str(self.comments))
+    print("ZZZZZZZZZZZZZZZZZZZZZZZZZZZ")
     self.setContent()
   def setContent(self, parent='loadmoreid=HOME'):
     comments = self.comments
@@ -38,6 +43,9 @@ class CommentsDialog(xbmcgui.WindowXMLDialog):
       li.setArt({'thumb':thumb})
       listItems.append(li)
       count += 1
+    print("LUUUUUUUUUUUUUUK MAN")
+    print(str(listItems))
+    print("LUUUUUUUUUUUUUUK MAN")
     self.addItems(listItems) 
   def onClick(self, controlId):
     if controlId == self.REPLY_ID:
