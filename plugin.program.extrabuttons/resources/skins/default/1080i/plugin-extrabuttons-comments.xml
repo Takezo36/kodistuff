@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<defaultcontrol always="true">50111</defaultcontrol>
+	<backgroundcolor>white</backgroundcolor>
+	<visible>true</visible>
+	<top>0</top>
+	<left>0</left>
+	<height>1080</height>
+	<width>1920</width>
+	<controls>
+		<control type="label">
+			<left>90</left>
+			<top>0</top>
+			<height>200</height>
+			<aligny>center</aligny>
+			<align>left</align>
+			<autoscroll>false</autoscroll>
+			<textcolor>green</textcolor>
+			<label>TESTING MY SHIT</label>
+		</control>
+		<control type="group">
+			<top>50</top>
+			<left>50</left>
+			<height>980</height>
+			<width>1820</width>-->
+			<control type="list" id="50111">
+				<description>My first list container</description>
+				<left>0</left>
+				<top>100</top>
+				<enable>true</enable>
+				<height>800</height>
+				<width>1700</width>
+				<visible>true</visible>
+				<onup>200</onup>
+				<ondown>87</ondown>
+				<viewtype label="3D list">list</viewtype>
+				<orientation>vertical</orientation>
+				<pagecontrol>25</pagecontrol>
+				<autoscroll>false</autoscroll>
+				<scrolltime tween="sine" easing="out">200</scrolltime>
+				<itemlayout width="1820" height="395">
+					<control type="image">
+						<left>5</left>
+						<top>5</top>
+						<width>80</width>
+						<height>80</height>
+						<texture>ListItem.Thumb</texture>
+					</control> 
+					<control type="label">
+						<left>90</left>
+						<top>5</top>
+						<height>80</height>
+						<width>1700</width>
+						<aligny>center</aligny>
+						<align>left</align>
+						<textcolor>black</textcolor>
+						<autoscroll>false</autoscroll>
+						<label>ListItem.Label</label>
+					</control>
+					<control type="label">
+						<left>5</left>
+						<top>90</top>
+						<height>300</height>
+						<width>1700</width>
+						<aligny>center</aligny>
+						<align>left</align>
+						<autoscroll>true</autoscroll>
+						<textcolor>black</textcolor>
+						<label>ListItem.Label2</label>
+					</control>
+				</itemlayout>
+				<focusedlayout width="1820" height="395">
+					<control type="image">
+						<width>1820</width>
+						<height>395</height>
+						<left>0</left>
+						<top>0</top>
+						<visible>Control.HasFocus(50111)</visible>
+						<texture colordiffuse="button_focus">lists/focus.png</texture>
+					</control>
+					<control type="image">
+						<left>5</left>
+						<top>5</top>
+						<width>80</width>
+						<height>80</height>
+						<texture>ListItem.Thumb</texture>
+					</control>
+					<control type="label">
+						<left>90</left>
+						<top>5</top>
+						<height>80</height>
+						<width>1700</width>
+						<aligny>center</aligny>
+						<align>left</align>
+						<autoscroll>false</autoscroll>
+						<label>ListItem.Label</label>
+						<textcolor>black</textcolor>
+					</control>
+					<control type="label">
+						<left>5</left>
+						<top>90</top>
+						<height>300</height>
+						<width>1700</width>
+						<aligny>center</aligny>
+						<align>left</align>
+						<autoscroll>true</autoscroll>
+						<label>ListItem.Label2</label>
+						<textcolor>black</textcolor>
+					</control>
+				</focusedlayout>
+			</control>
+			<control type="button" id="5555">
+				<description>My first button control</description>
+				<left>400</left>
+				<top>1700</top>
+				<width>250</width>
+				<height>200</height>
+				<visible>true</visible>
+				<colordiffuse>FFFFFFFF</colordiffuse>
+				<texturefocus colordiffuse="FFFFAAFF">myfocustexture.png</texturefocus>
+				<texturenofocus colordiffuse="FFFFAAFF">mynormaltexture.png</texturenofocus>
+				<label>Cancel</label>
+				<wrapmultiline>true</wrapmultiline>
+				<font>font12</font>
+				<textcolor>FFFFFFFF</textcolor>
+				<focusedcolor>FFFFFFFF</focusedcolor>
+				<disabledcolor>80FFFFFF</disabledcolor>
+				<invalidcolor>FFFFFFFF</invalidcolor>
+				<align/>
+				<aligny/>
+				<textoffsetx/>
+				<textoffsety/>
+				<pulseonselect/>
+				<onfocus/>
+				<onunfocus/>
+				<onup>2</onup>
+				<ondown>3</ondown>
+				<onleft>1</onleft>
+				<onright>1</onright>
+			</control>
+			<control type="button" id="6666">
+				<description>My first button control</description>
+				<left>660</left>
+				<top>1700</top>
+				<width>250</width>
+				<height>200</height>
+				<visible>true</visible>
+				<colordiffuse>FFFFFFFF</colordiffuse>
+				<texturefocus colordiffuse="FFFFAAFF">myfocustexture.png</texturefocus>
+				<texturenofocus colordiffuse="FFFFAAFF">mynormaltexture.png</texturenofocus>
+				<label>Load more</label>
+				<wrapmultiline>true</wrapmultiline>
+				<font>font12</font>
+				<textcolor>FFFFFFFF</textcolor>
+				<focusedcolor>FFFFFFFF</focusedcolor>
+				<disabledcolor>80FFFFFF</disabledcolor>
+				<invalidcolor>FFFFFFFF</invalidcolor>
+				<align/>
+				<aligny/>
+				<textoffsetx/>
+				<textoffsety/>
+				<pulseonselect/>
+				<onfocus/>
+				<onunfocus/>
+				<onup>2</onup>
+				<ondown>3</ondown>
+				<onleft>1</onleft>
+				<onright>1</onright>
+			</control>
+			<control type="button" id="7777">
+				<description>My first button control</description>
+				<left>920</left>
+				<top>1700</top>
+				<width>250</width>
+				<height>200</height>
+				<visible>true</visible>
+				<colordiffuse>FFFFFFFF</colordiffuse>
+				<texturefocus colordiffuse="FFFFAAFF">myfocustexture.png</texturefocus>
+				<texturenofocus colordiffuse="FFFFAAFF">mynormaltexture.png</texturenofocus>
+				<label>Reply</label>
+				<wrapmultiline>true</wrapmultiline>
+				<font>font12</font>
+				<textcolor>FFFFFFFF</textcolor>
+				<focusedcolor>FFFFFFFF</focusedcolor>
+				<disabledcolor>80FFFFFF</disabledcolor>
+				<invalidcolor>FFFFFFFF</invalidcolor>
+				<align/>
+				<aligny/>
+				<textoffsetx/>
+				<textoffsety/>
+				<pulseonselect/>
+				<onfocus/>
+				<onunfocus/>
+				<onup>2</onup>
+				<ondown>3</ondown>
+				<onleft>1</onleft>
+				<onright>1</onright>
+			</control>
+		</control>
+	</controls>
+</window>

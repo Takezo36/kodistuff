@@ -5,23 +5,25 @@
 import xbmc
 from xbmc import Player
 from .Commons import setupProviders
-from .Commons import CACHE_ID
-from .Commons import CACHE_TIME
-import simplejson as json
 import re
-try:
-   import StorageServer
-except:
-   import storageserverdummy as StorageServer
+import threading
+import _thread
+import random
+from multiprocessing.connection import Listener
+#from multiprocessing.shared_memory import SharedMemory
+
 
 class MyPlayer(Player):
   def __init__(self):
     Player.__init__(self)
+ #   self.sharedMem = SharedMemory('myfunkyname', True, 1)
+    self.lock = threading.Lock()
+    self.buttons = []
+    _thread.start_new_thread(self.setupListener, ())
     self.providers = setupProviders()
-    self.cache = StorageServer.StorageServer(CACHE_ID, CACHE_TIME)
     
   def onPlayBackStarted(self):  # pylint: disable=invalid-name
-    print('ddddddddddddddddddddddddddddddddd')
+    self.lock.acquire()
     currentlyPlaying = self.getCurrentlyPlaying()
     print('ddddddddddddddddddddddddddddddddd: ' + str(currentlyPlaying))
     self.cacheId = str(hash(frozenset(currentlyPlaying.items())))
@@ -32,6 +34,7 @@ class MyPlayer(Player):
     provider = self.getProvider(currentlyPlaying)
     print('fffffffffffffffffffffffff: ' + str(self.cacheId))
     self.storeButtons(currentlyPlaying, provider)
+    self.lock.release()
   def getCurrentlyPlaying(self):
     item = {}
     if(self.isPlayingVideo()):
@@ -72,9 +75,40 @@ class MyPlayer(Player):
       return TvShowProvider(mediaInfo['dbid'])
     elif(mediaInfo['type']=='movie'):
       return MovieProvider(mediaInfo['dbid'])
+  def setupListener(self):
+    listener = None
+    port = 7777
+    count = 0
+    #while listener == None:
+    #  if(count > 5):
+    #    raise NameError#figure out a proper error...
+      #port = random.randint(1025, 65535)
+    #  listener = self.getListener(port)
+    #  count += 1
+    #self.publishPort(port)
+    address = ('localhost', port)
+    while not xbmc.Monitor().abortRequested():
+      with Listener(address) as listener:
+        with listener.accept() as conn:
+          self.lock.acquire()
+          conn.send(self.buttons)
+          self.lock.release()
+    #self.sharedMem.unlink()
+  def publishPort(self, port):
+    #self.sharedMem.buf[0] = port
+    #self.sharedMem.close()
+    return    
+  def getListener(self, port):
+    address = ('localhost', port)
+    try:
+      with Listener(address) as listener:
+        return listener
+    except:
+      return None
+  
   def storeButtons(self, currentlyPlaying, provider):
-    buttons = provider.getButtons()
-    toStore = json.dumps(buttons)
-    print('toStore: ' + toStore)
-    print('cacheId: ' + self.cacheId)
-    self.cache.set(self.cacheId, toStore)
+    self.buttons = provider.getButtons()
+    #toStore = json.dumps(buttons)
+    #print('toStore: ' + toStore)
+    #print('cacheId: ' + self.cacheId)
+    #self.cache.set(self.cacheId, toStore)

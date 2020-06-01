@@ -2,29 +2,34 @@
 
 # Copyright (C) 2018 - Benjamin Hebgen <mail>
 # This program is Free Software see LICENSE file for details
+import urllib.parse
+
+def parseArgs():
+  global handle
+  params = {}
+  try:
+    handle = int(sys.argv[1])
+    args = sys.argv[2][1:]
+  except:
+    args = sys.argv[1]
+  if args:
+    for argPair in args.split("&"):
+      temp = argPair.split("=")
+      params[temp[0]] = urllib.parse.unquote(temp[1])
+  return params
 
 import os
 import sys
+params = parseArgs()
 import xbmc
 import xbmcgui
 import xbmcplugin
 import xbmcaddon
-import urllib
-import simplejson as json
+sys.argv = ['']
 from resources.lib.Commons import setupProviders
 from resources.lib.Commons import createListItem
-from resources.lib.Commons import CACHE_ID
-from resources.lib.Commons import CACHE_TIME
-
-
-
-from distutils.util import strtobool
-try:
-   import StorageServer
-except:
-   import storageserverdummy as StorageServer
-
- 
+from multiprocessing.connection import Client
+#from multiprocessing.shared_memory import SharedMemory
 
 
   
@@ -69,13 +74,13 @@ def getListItems(buttons):
 def getButtons():
   print('5555555555555555555')
   currentlyPlaying = getRunningmediaInfoInfo()
-  cache = StorageServer.StorageServer(CACHE_ID, CACHE_TIME)
-  cacheId = str(hash(frozenset(currentlyPlaying.items())))
-  jsonStr = None
-  print('cacheId: ' + cacheId)
-  jsonStr = cache.get(cacheId)
-  print('jsonStr: ' + jsonStr)
-  buttons = json.loads(jsonStr)
+  #sharedMem = SharedMemory('myfunkyname', False, 1)
+  port = 7777#sharedMem.buf[0]
+  #shareMem.close()
+  address = ('localhost', port)
+  with Client(address) as conn:
+    buttons = conn.recv()
+    conn.close()
   passToSkin(getListItems(buttons))
 def passToSkin(listItems):
   global handle
@@ -89,26 +94,22 @@ def passToSkin(listItems):
   xbmcplugin.setResolvedUrl(handle=handle, succeeded=True, listitem=xbmcgui.ListItem())  
   return
 
-def parseArgs():
-  global handle
-  handle = int(sys.argv[1])
-  params = {}
-  args = sys.argv[2][1:]
-  if args:
-    for argPair in args.split("&"):
-      temp = argPair.split("=")
-      params[temp[0]] = urllib.unquote(temp[1])
-  return params
+
 if (__name__ == "__main__"):
   print('111111111111111111111')
-  params = parseArgs()
   print('2222222222222222')
   providers = setupProviders()
   if('action' in params.keys()):
     print('33333333333333333')
     print(str(params))
     action = params['action']
-    getProviderForAction(params['provider']).doAction(action, params)
+    if(action == 'open'):
+      xbmcgui.Window(12901).close()
+      cmd = 'ActivateWindow(videos, ' + params['path'] + ')'
+      print(cmd)
+      xbmc.executebuiltin(cmd)
+    else:
+      getProviderForAction(params['provider']).doAction(action, params)
   else:
     print('4444444444444444444444444')
     getButtons()

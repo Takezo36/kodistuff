@@ -1,23 +1,16 @@
-import simplejson as json
-import providers.YoutubeProvider as YoutubeProvider
+import resources.lib.providers.YoutubeProvider as YoutubeProvider
 import xbmcgui
 #import resources.lib.TwitchProvider as TwitchProvider
 #import resources.lib.TvShowProvider as TvShowProvider
 #import resources.lib.MovieProvider as MovieProvider
 
-try:
-  from urllib.request import Request
-  from urllib.request import urlopen
-except:
-  from urllib2 import Request
-  from urllib2 import urlopen
+from urllib.request import Request
+from urllib.request import urlopen
 
-CACHE_ID = "akshd@#asukd!@#"
-CACHE_TIME = 999999999
 def setupProviders():
   providers = {}
   #provders['plugin:\/\/plugin\.video\.twitch\/\?video_id=[v]*(\d+).*&mode=play.*'] = TwitchProvider
-  providers['plugin:\/\/plugin\.video\.youtube\/play/\?video_id=(\w+)'] = YoutubeProvider
+  providers['plugin:\/\/plugin\.video\.youtube\/play\/\?video_id\=([\w\-]+)'] = YoutubeProvider
   return providers
 def doGet(url, headers):
   req = Request(url, headers=headers)
