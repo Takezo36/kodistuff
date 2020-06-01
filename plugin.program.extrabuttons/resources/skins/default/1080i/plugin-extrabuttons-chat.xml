@@ -21,7 +21,7 @@
 			<textcolor>white</textcolor>
 			<autoscroll>false</autoscroll>
 			<font>font36_title</font>
-			<label>Comments</label>
+			<label>Chat</label>
 		</control>
 		<control type="group" id="33333">
 			<top>90</top>
