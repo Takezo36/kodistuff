@@ -17,24 +17,25 @@ class MyPlayer(Player):
   def __init__(self):
     Player.__init__(self)
  #   self.sharedMem = SharedMemory('myfunkyname', True, 1)
-    self.lock = threading.Lock()
+    self.buttonLock = threading.Lock()
+    self.preloadLock = threading.Lock()
     self.buttons = []
+    self.preload = {}
+    self.id2buttons = {}
+    self.id2preload = {}
     _thread.start_new_thread(self.setupListener, ())
     self.providers = setupProviders()
     
   def onPlayBackStarted(self):  # pylint: disable=invalid-name
-    self.lock.acquire()
+    self.tempStore = 'None'
+    self.preloadLock.acquire()
+    self.buttonLock.acquire()
     currentlyPlaying = self.getCurrentlyPlaying()
-    print('ddddddddddddddddddddddddddddddddd: ' + str(currentlyPlaying))
-    self.cacheId = str(hash(frozenset(currentlyPlaying.items())))
-    print('eeeeeeeeeeeeeeeeeeeeeeeeee: ' + str(self.cacheId))
-    #test = self.cache.get(self.cacheId)
-    #print('ssssssssssssssssssssssss: ' + str(test))  
-    #if(not test):
     provider = self.getProvider(currentlyPlaying)
-    print('fffffffffffffffffffffffff: ' + str(self.cacheId))
+    self.storePreload(currentlyPlaying, provider)
+    self.preloadLock.release()
     self.storeButtons(currentlyPlaying, provider)
-    self.lock.release()
+    self.buttonLock.release()
   def getCurrentlyPlaying(self):
     item = {}
     if(self.isPlayingVideo()):
@@ -70,7 +71,7 @@ class MyPlayer(Player):
       for key,value in self.providers.items():
         match = re.search(key, mediaInfo['pluginpath'])
         if(match):
-          return value.Provider(match)
+          return value.Provider(match, mediaInfo['pluginpath'])
     elif(mediaInfo['type']=='episode'):
       return TvShowProvider(mediaInfo['dbid'])
     elif(mediaInfo['type']=='movie'):
@@ -90,9 +91,19 @@ class MyPlayer(Player):
     while not xbmc.Monitor().abortRequested():
       with Listener(address) as listener:
         with listener.accept() as conn:
-          self.lock.acquire()
-          conn.send(self.buttons)
-          self.lock.release()
+          value = conn.recv()
+          if(value == 0):
+            self.preloadLock.acquire()
+            conn.send(self.preload)
+            self.preloadLock.release()
+          elif(value == 1):
+            self.buttonLock.acquire()
+            conn.send(self.buttons)
+            self.buttonLock.release()
+          elif(value == 2):
+            self.tempStore = conn.recv()
+          elif(value == 3):
+            conn.send(self.tempStore)
     #self.sharedMem.unlink()
   def publishPort(self, port):
     #self.sharedMem.buf[0] = port
@@ -106,9 +117,22 @@ class MyPlayer(Player):
     except:
       return None
   
+  def storePreload(self, currentlyPlaying, provider):
+    contentId = provider.getId()
+    if(contentId in self.id2preload):
+      self.preload = self.id2preload[contentId]
+    else:
+      self.preload = provider.preload()
+      self.id2preload[contentId] = self.preload
   def storeButtons(self, currentlyPlaying, provider):
-    self.buttons = provider.getButtons()
+    contentId = provider.getId()
+    if(contentId in self.id2buttons):
+      self.buttons = self.id2buttons[contentId]
+    else:
+      self.buttons = provider.getButtons()
+      self.id2buttons[contentId] = self.buttons
+    
     #toStore = json.dumps(buttons)
-    #print('toStore: ' + toStore)
+    print('toStore: ' + str(self.buttons))
     #print('cacheId: ' + self.cacheId)
     #self.cache.set(self.cacheId, toStore)

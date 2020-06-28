@@ -1,4 +1,5 @@
 import resources.lib.providers.YoutubeProvider as YoutubeProvider
+import resources.lib.providers.TwitchProvider as TwitchProvider
 import xbmcgui
 #import resources.lib.TwitchProvider as TwitchProvider
 #import resources.lib.TvShowProvider as TvShowProvider
@@ -9,7 +10,7 @@ from urllib.request import urlopen
 
 def setupProviders():
   providers = {}
-  #provders['plugin:\/\/plugin\.video\.twitch\/\?video_id=[v]*(\d+).*&mode=play.*'] = TwitchProvider
+  providers['plugin:\/\/plugin\.video\.twitch\/\?.*(video_id|channel_id)=[v]*(\d+).*'] = TwitchProvider
   providers['plugin:\/\/plugin\.video\.youtube\/play\/\?video_id\=([\w\-]+)'] = YoutubeProvider
   return providers
 def doGet(url, headers):
@@ -37,3 +38,5 @@ def createListItem(label, path, thumb, count, isFolder=None, isPlayable=None, re
   #if(resolvedUrl!=None):
     
   return li
+def getFolderList(path):
+  return path

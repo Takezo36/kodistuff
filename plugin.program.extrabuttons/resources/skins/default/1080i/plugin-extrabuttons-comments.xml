@@ -32,6 +32,8 @@
 				<description>My first list container</description>
 				<left>0</left>
 				<top>2</top>
+				<onup>44444</onup>
+				<ondown>44444</ondown>
 				<enable>true</enable>
 				<height>790</height>
 				<width>1720</width>
@@ -42,6 +44,14 @@
 				<orientation>vertical</orientation>
 				<pagecontrol>25</pagecontrol>
 				<autoscroll>false</autoscroll>
+				<!-- li.setProperty("commentId", comment['id'])
+      li.setProperty("replyCount", comment['replyCount'])
+      li.setProperty("canReply", comment['canReply'])
+      li.setProperty("likeCount", comment['likeCount'])
+      li.setProperty("liked", comment['liked'])
+      li.setProperty("canLike", comment['canLike'])
+      li.setProperty("isHome", comment['isHome'])
+      -->
 				<scrolltime tween="sine" easing="out">200</scrolltime>
 				<itemlayout width="1720" height="300">
 					<control type="image">
@@ -54,14 +64,62 @@
 					<control type="label">
 						<left>90</left>
 						<top>5</top>
-						<height>80</height>
-						<width>1720</width>
+						<height>50</height>
+						<width>400</width>
 						<aligny>center</aligny>
 						<align>left</align>
 						<textcolor>white</textcolor>
 						<autoscroll>false</autoscroll>
 						<font>font36_title</font>
 						<label>$INFO[ListItem.Label]</label>
+					</control>
+					<control type="label">
+						<left>90</left>
+						<top>55</top>
+						<height>30</height>
+						<width>400</width>
+						<aligny>center</aligny>
+						<align>left</align>
+						<textcolor>white</textcolor>
+						<autoscroll>false</autoscroll>
+						<font>font10</font>
+						<label>$INFO[ListItem.Property(date)]</label>
+					</control>
+					<control type="image">
+						<left>1460</left>
+						<top>5</top>
+						<width>60</width>
+						<height>60</height>
+						<texture diffuse="circle.png">replies.png</texture>
+					</control> 
+					<control type="label">
+						<left>1525</left>
+						<top>5</top>
+						<height>60</height>
+						<width>60</width>
+						<aligny>center</aligny>
+						<align>left</align>
+						<textcolor>white</textcolor>
+						<autoscroll>false</autoscroll>
+						<label>$INFO[ListItem.Property(replyCount)]</label>
+					</control>
+					<control type="image">
+						<left>1590</left>
+						<top>5</top>
+						<width>60</width>
+						<height>60</height>
+						<texture diffuse="circle.png">$INFO[ListItem.Property(liked)].png</texture>
+					</control> 
+					<control type="label">
+						<left>1655</left>
+						<top>5</top>
+						<height>60</height>
+						<width>60</width>
+						<aligny>center</aligny>
+						<align>left</align>
+						<textcolor>white</textcolor>
+						<autoscroll>false</autoscroll>
+						<label>$INFO[ListItem.Property(likeCount)]</label>
 					</control>
 					<control type="label">
 						<left>5</left>
@@ -95,8 +153,8 @@
 					<control type="label">
 						<left>90</left>
 						<top>5</top>
-						<height>80</height>
-						<width>1720</width>
+						<height>50</height>
+						<width>400</width>
 						<aligny>center</aligny>
 						<align>left</align>
 						<textcolor>white</textcolor>
@@ -105,13 +163,61 @@
 						<label>$INFO[ListItem.Label]</label>
 					</control>
 					<control type="label">
+						<left>90</left>
+						<top>55</top>
+						<height>30</height>
+						<width>400</width>
+						<aligny>center</aligny>
+						<align>left</align>
+						<textcolor>white</textcolor>
+						<autoscroll>false</autoscroll>
+						<font>font10</font>
+						<label>$INFO[ListItem.Property(date)]</label>
+					</control>
+					<control type="image">
+						<left>1460</left>
+						<top>5</top>
+						<width>60</width>
+						<height>60</height>
+						<texture diffuse="circle.png">replies.png</texture>
+					</control> 
+					<control type="label">
+						<left>1525</left>
+						<top>5</top>
+						<height>60</height>
+						<width>60</width>
+						<aligny>center</aligny>
+						<align>left</align>
+						<textcolor>white</textcolor>
+						<autoscroll>false</autoscroll>
+						<label>$INFO[ListItem.Property(replyCount)]</label>
+					</control>
+					<control type="image">
+						<left>1590</left>
+						<top>5</top>
+						<width>60</width>
+						<height>60</height>
+						<texture diffuse="circle.png">$INFO[ListItem.Property(liked)].png</texture>
+					</control> 
+					<control type="label">
+						<left>1655</left>
+						<top>5</top>
+						<height>60</height>
+						<width>60</width>
+						<aligny>center</aligny>
+						<align>left</align>
+						<textcolor>white</textcolor>
+						<autoscroll>false</autoscroll>
+						<label>$INFO[ListItem.Property(likeCount)]</label>
+					</control>
+					<control type="label">
 						<left>5</left>
 						<top>90</top>
 						<height>220</height>
 						<width>1720</width>
 						<aligny>top</aligny>
 						<align>left</align>
-						<autoscroll>true</autoscroll>
+						<autoscroll>false</autoscroll>
 						<wrapmultiline>true</wrapmultiline>
 						<textcolor>white</textcolor>
 						<label>$INFO[ListItem.Label2]</label>
@@ -124,93 +230,92 @@
 			<left>100</left>
 			<height>100</height>
 			<width>1720</width>
-			
 			<control type="button" id="5555">
 				<description>My first button control</description>
 				<left>400</left>
 				<top>5</top>
 				<width>250</width>
-				<height>200</height>
+				<height>70</height>
 				<visible>true</visible>
 				<colordiffuse>FFFFFFFF</colordiffuse>
-				<texturefocus colordiffuse="FFFFAAFF">myfocustexture.png</texturefocus>
+				<texturefocus colordiffuse="button_focus">lists/focus.png</texturefocus>
 				<texturenofocus colordiffuse="FFFFAAFF">mynormaltexture.png</texturenofocus>
 				<label>Cancel</label>
 				<wrapmultiline>true</wrapmultiline>
-				<font>font12</font>
+				<font>font14</font>
 				<textcolor>FFFFFFFF</textcolor>
 				<focusedcolor>FFFFFFFF</focusedcolor>
 				<disabledcolor>80FFFFFF</disabledcolor>
 				<invalidcolor>FFFFFFFF</invalidcolor>
-				<align/>
-				<aligny/>
+				<align>center</align>
+				<aligny>center</aligny>
 				<textoffsetx/>
 				<textoffsety/>
 				<pulseonselect/>
 				<onfocus/>
 				<onunfocus/>
-				<onup>2</onup>
-				<ondown>3</ondown>
-				<onleft>1</onleft>
-				<onright>1</onright>
+				<onleft>7777</onleft>
+				<onright>6666</onright>
+				<onup>33333</onup>
+				<ondown>33333</ondown>
 			</control>
 			<control type="button" id="6666">
 				<description>My first button control</description>
 				<left>660</left>
 				<top>5</top>
 				<width>250</width>
-				<height>200</height>
+				<height>70</height>
 				<visible>true</visible>
 				<colordiffuse>FFFFFFFF</colordiffuse>
-				<texturefocus colordiffuse="FFFFAAFF">myfocustexture.png</texturefocus>
+				<texturefocus colordiffuse="button_focus">lists/focus.png</texturefocus>
 				<texturenofocus colordiffuse="FFFFAAFF">mynormaltexture.png</texturenofocus>
 				<label>Load more</label>
 				<wrapmultiline>true</wrapmultiline>
-				<font>font12</font>
+				<font>font14</font>
 				<textcolor>FFFFFFFF</textcolor>
 				<focusedcolor>FFFFFFFF</focusedcolor>
 				<disabledcolor>80FFFFFF</disabledcolor>
 				<invalidcolor>FFFFFFFF</invalidcolor>
-				<align/>
-				<aligny/>
+				<align>center</align>
+				<aligny>center</aligny>
 				<textoffsetx/>
 				<textoffsety/>
 				<pulseonselect/>
 				<onfocus/>
 				<onunfocus/>
-				<onup>2</onup>
-				<ondown>3</ondown>
-				<onleft>1</onleft>
-				<onright>1</onright>
+				<onleft>5555</onleft>
+				<onright>7777</onright>
+				<onup>33333</onup>
+				<ondown>33333</ondown>
 			</control>
 			<control type="button" id="7777">
 				<description>My first button control</description>
 				<left>920</left>
 				<top>5</top>
 				<width>250</width>
-				<height>200</height>
+				<height>70</height>
 				<visible>true</visible>
 				<colordiffuse>FFFFFFFF</colordiffuse>
-				<texturefocus colordiffuse="FFFFAAFF">myfocustexture.png</texturefocus>
+				<texturefocus colordiffuse="button_focus">lists/focus.png</texturefocus>
 				<texturenofocus colordiffuse="FFFFAAFF">mynormaltexture.png</texturenofocus>
 				<label>Reply</label>
 				<wrapmultiline>true</wrapmultiline>
-				<font>font12</font>
+				<font>font14</font>
 				<textcolor>FFFFFFFF</textcolor>
 				<focusedcolor>FFFFFFFF</focusedcolor>
 				<disabledcolor>80FFFFFF</disabledcolor>
 				<invalidcolor>FFFFFFFF</invalidcolor>
-				<align/>
-				<aligny/>
+				<align>center</align>
+				<aligny>center</aligny>
 				<textoffsetx/>
 				<textoffsety/>
 				<pulseonselect/>
 				<onfocus/>
 				<onunfocus/>
-				<onup>2</onup>
-				<ondown>3</ondown>
-				<onleft>1</onleft>
-				<onright>1</onright>
+				<onleft>6666</onleft>
+				<onright>5555</onright>
+				<onup>33333</onup>
+				<ondown>33333</ondown>
 			</control>
 		</control>
 	</controls>

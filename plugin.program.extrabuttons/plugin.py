@@ -71,7 +71,10 @@ def getListItems(buttons):
     result.append(createListItem(button['label'], button['path'], button['logo'], count, button['isFolder'], button['isPlayable'], button['resolvedUrl']))
     count += 1
   return result
-def getButtons():
+def getButtonsForSkin():
+  listItems = getButtonListItems()
+  passToSkin(listItems)
+def getButtonListItems():
   print('5555555555555555555')
   currentlyPlaying = getRunningmediaInfoInfo()
   #sharedMem = SharedMemory('myfunkyname', False, 1)
@@ -79,9 +82,10 @@ def getButtons():
   #shareMem.close()
   address = ('localhost', port)
   with Client(address) as conn:
+    conn.send(1)
     buttons = conn.recv()
     conn.close()
-  passToSkin(getListItems(buttons))
+  return getListItems(buttons)
 def passToSkin(listItems):
   global handle
   global params
@@ -94,6 +98,11 @@ def passToSkin(listItems):
   xbmcplugin.setResolvedUrl(handle=handle, succeeded=True, listitem=xbmcgui.ListItem())  
   return
 
+def showPopUpDialog():
+  from resources.lib.dialogs.PopUpDialog import PopUpDialog
+  buttons = getButtonListItems()
+  popUpDialog = PopUpDialog("plugin-extrabuttons-popup.xml", xbmcaddon.Addon("plugin.program.extrabuttons").getAddonInfo('path'), "default", "1080i", buttons=buttons)
+  popUpDialog.doModal()
 
 if (__name__ == "__main__"):
   print('111111111111111111111')
@@ -103,7 +112,9 @@ if (__name__ == "__main__"):
     print('33333333333333333')
     print(str(params))
     action = params['action']
-    if(action == 'open'):
+    if(action == 'buttons'):
+      getButtonsForSkin()
+    elif(action == 'open'):
       xbmcgui.Window(12901).close()
       cmd = 'ActivateWindow(videos, ' + params['path'] + ')'
       print(cmd)
@@ -111,7 +122,6 @@ if (__name__ == "__main__"):
     else:
       getProviderForAction(params['provider']).doAction(action, params)
   else:
-    print('4444444444444444444444444')
-    getButtons()
+    showPopUpDialog()
   xbmc.log('finished')
 

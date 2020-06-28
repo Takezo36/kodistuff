@@ -5,17 +5,17 @@
 	<onload>Dialog.Close(videoosd,true)</onload>
 	<controls>
 		<control type="image">
-			<top>50</top>
-			<left>50</left>
-			<width>1820</width>
-			<height>980</height>
+			<top>0</top>
+			<right>0</right>
+			<width>600</width>
+			<height>1080</height>
 			<texture colordiffuse="dd000000">bg.png</texture>
 		</control>
 		<control type="label">
-			<left>50</left>
-			<top>50</top>
+			<top>0</top>
+			<right>0</right>
+			<width>600</width>
 			<height>40</height>
-			<width>1820</width>
 			<aligny>center</aligny>
 			<align>center</align>
 			<textcolor>white</textcolor>
@@ -24,94 +24,95 @@
 			<label>Chat</label>
 		</control>
 		<control type="group" id="33333">
-			<top>90</top>
-			<left>100</left>
-			<height>790</height>
-			<width>1720</width>
+			<top>50</top>
+			<right>10</right>
+			<width>580</width>
+			<height>960</height>
+			<defaultcontrol>50111</defaultcontrol>
 			<control type="list" id="50111">
 				<description>My first list container</description>
 				<left>0</left>
-				<top>2</top>
+				<top>0</top>
+				<onup>44444</onup>
+			    <ondown>44444</ondown>
 				<enable>true</enable>
-				<height>790</height>
-				<width>1720</width>
+				<height>960</height>
+				<width>580</width>
 				<visible>true</visible>
-				<onup>200</onup>
-				<ondown>87</ondown>
 				<viewtype label="3D list">list</viewtype>
 				<orientation>vertical</orientation>
 				<pagecontrol>25</pagecontrol>
 				<autoscroll>false</autoscroll>
 				<scrolltime tween="sine" easing="out">200</scrolltime>
-				<itemlayout width="1720" height="300">
+				<itemlayout width="380" height="150">
 					<control type="image">
-						<left>5</left>
-						<top>5</top>
-						<width>80</width>
-						<height>80</height>
+						<left>2</left>
+						<top>2</top>
+						<width>30</width>
+						<height>30</height>
 						<texture>$INFO[ListItem.Thumb]</texture>
 					</control> 
 					<control type="label">
-						<left>90</left>
-						<top>5</top>
-						<height>80</height>
-						<width>1720</width>
+						<left>34</left>
+						<top>2</top>
+						<height>30</height>
+						<width>548</width>
 						<aligny>center</aligny>
 						<align>left</align>
 						<textcolor>white</textcolor>
 						<autoscroll>false</autoscroll>
-						<font>font36_title</font>
+						<font>font13_title</font>
 						<label>$INFO[ListItem.Label]</label>
 					</control>
 					<control type="label">
-						<left>5</left>
-						<top>90</top>
-						<height>220</height>
-						<width>1720</width>
+						<left>2</left>
+						<top>34</top>
+						<height>116</height>
+						<width>576</width>
 						<aligny>top</aligny>
 						<align>left</align>
-						<autoscroll>false</autoscroll>
-						<wrapmultiline>true</wrapmultiline>
+						<autoscroll delay="0">true</autoscroll>
+						<wrapmultiline>false</wrapmultiline>
 						<textcolor>white</textcolor>
 						<label>$INFO[ListItem.Label2]</label>
 					</control>
 				</itemlayout>
-				<focusedlayout width="1720" height="300">
+				<focusedlayout width="380" height="150">
 					<control type="image">
-						<width>1720</width>
-						<height>300</height>
+						<width>580</width>
+						<height>150</height>
 						<left>0</left>
 						<top>0</top>
 						<visible>Control.HasFocus(50111)</visible>
 						<texture colordiffuse="button_focus">lists/focus.png</texture>
 					</control>
 					<control type="image">
-						<left>5</left>
-						<top>5</top>
-						<width>80</width>
-						<height>80</height>
+						<left>2</left>
+						<top>2</top>
+						<width>30</width>
+						<height>30</height>
 						<texture>$INFO[ListItem.Thumb]</texture>
 					</control> 
 					<control type="label">
-						<left>90</left>
-						<top>5</top>
-						<height>80</height>
-						<width>1720</width>
+						<left>34</left>
+						<top>2</top>
+						<height>30</height>
+						<width>548</width>
 						<aligny>center</aligny>
 						<align>left</align>
 						<textcolor>white</textcolor>
 						<autoscroll>false</autoscroll>
-						<font>font36_title</font>
+						<font>font12_title</font>
 						<label>$INFO[ListItem.Label]</label>
 					</control>
 					<control type="label">
-						<left>5</left>
-						<top>90</top>
-						<height>220</height>
-						<width>1720</width>
+						<left>2</left>
+						<top>34</top>
+						<height>116</height>
+						<width>576</width>
 						<aligny>top</aligny>
 						<align>left</align>
-						<autoscroll>true</autoscroll>
+						<autoscroll>false</autoscroll>
 						<wrapmultiline>true</wrapmultiline>
 						<textcolor>white</textcolor>
 						<label>$INFO[ListItem.Label2]</label>
@@ -120,20 +121,22 @@
 			</control>
 		</control>
 		<control type="group" id="44444">
-			<top>890</top>
-			<left>100</left>
-			<height>100</height>
-			<width>1720</width>
-			
+			<top>1030</top>
+			<left>1530</left>
+			<height>50</height>
+			<width>380</width>
+			<onup>33333</onup>
+			<ondown>33333</ondown>
+			<defaultcontrol>5555</defaultcontrol>
 			<control type="button" id="5555">
 				<description>My first button control</description>
-				<left>400</left>
+				<left>10</left>
 				<top>5</top>
-				<width>250</width>
-				<height>200</height>
+				<width>185</width>
+				<height>50</height>
 				<visible>true</visible>
 				<colordiffuse>FFFFFFFF</colordiffuse>
-				<texturefocus colordiffuse="FFFFAAFF">myfocustexture.png</texturefocus>
+				<texturefocus colordiffuse="button_focus">lists/focus.png</texturefocus>
 				<texturenofocus colordiffuse="FFFFAAFF">mynormaltexture.png</texturenofocus>
 				<label>Cancel</label>
 				<wrapmultiline>true</wrapmultiline>
@@ -142,56 +145,25 @@
 				<focusedcolor>FFFFFFFF</focusedcolor>
 				<disabledcolor>80FFFFFF</disabledcolor>
 				<invalidcolor>FFFFFFFF</invalidcolor>
-				<align/>
+				<align>center</align>
 				<aligny/>
 				<textoffsetx/>
 				<textoffsety/>
 				<pulseonselect/>
 				<onfocus/>
 				<onunfocus/>
-				<onup>2</onup>
-				<ondown>3</ondown>
-				<onleft>1</onleft>
-				<onright>1</onright>
-			</control>
-			<control type="button" id="6666">
-				<description>My first button control</description>
-				<left>660</left>
-				<top>5</top>
-				<width>250</width>
-				<height>200</height>
-				<visible>true</visible>
-				<colordiffuse>FFFFFFFF</colordiffuse>
-				<texturefocus colordiffuse="FFFFAAFF">myfocustexture.png</texturefocus>
-				<texturenofocus colordiffuse="FFFFAAFF">mynormaltexture.png</texturenofocus>
-				<label>Load more</label>
-				<wrapmultiline>true</wrapmultiline>
-				<font>font12</font>
-				<textcolor>FFFFFFFF</textcolor>
-				<focusedcolor>FFFFFFFF</focusedcolor>
-				<disabledcolor>80FFFFFF</disabledcolor>
-				<invalidcolor>FFFFFFFF</invalidcolor>
-				<align/>
-				<aligny/>
-				<textoffsetx/>
-				<textoffsety/>
-				<pulseonselect/>
-				<onfocus/>
-				<onunfocus/>
-				<onup>2</onup>
-				<ondown>3</ondown>
-				<onleft>1</onleft>
-				<onright>1</onright>
+				<onleft>7777</onleft>
+				<onright>7777</onright>
 			</control>
 			<control type="button" id="7777">
 				<description>My first button control</description>
-				<left>920</left>
+				<left>210</left>
 				<top>5</top>
-				<width>250</width>
-				<height>200</height>
+				<width>185</width>
+				<height>50</height>
 				<visible>true</visible>
 				<colordiffuse>FFFFFFFF</colordiffuse>
-				<texturefocus colordiffuse="FFFFAAFF">myfocustexture.png</texturefocus>
+				<texturefocus colordiffuse="button_focus">lists/focus.png</texturefocus>
 				<texturenofocus colordiffuse="FFFFAAFF">mynormaltexture.png</texturenofocus>
 				<label>Reply</label>
 				<wrapmultiline>true</wrapmultiline>
@@ -200,17 +172,15 @@
 				<focusedcolor>FFFFFFFF</focusedcolor>
 				<disabledcolor>80FFFFFF</disabledcolor>
 				<invalidcolor>FFFFFFFF</invalidcolor>
-				<align/>
+				<align>center</align>
 				<aligny/>
 				<textoffsetx/>
 				<textoffsety/>
 				<pulseonselect/>
 				<onfocus/>
 				<onunfocus/>
-				<onup>2</onup>
-				<ondown>3</ondown>
-				<onleft>1</onleft>
-				<onright>1</onright>
+				<onleft>5555</onleft>
+				<onright>5555</onright>
 			</control>
 		</control>
 	</controls>
