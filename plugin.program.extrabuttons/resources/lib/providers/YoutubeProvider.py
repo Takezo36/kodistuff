@@ -24,6 +24,7 @@ class Provider(VideoPlatformBaseProvider.VideoPlatformBaseProvider):
     self.providerName = 'plugin.video.youtube'
     if(match):
       self.videoId = match.group(1)
+    self.provider, self.context, self.client = getCoreComponents()
     return
   def getId(self):
     return self.videoId
@@ -65,20 +66,20 @@ class Provider(VideoPlatformBaseProvider.VideoPlatformBaseProvider):
     return super().getCommentsButton(logo)
   def getChatButton(self):
     logo = self.MEDIA_BASE + 'playlist.png'
-    return super()  .getChatButton(logo)
-
+    return super().getChatButton(logo)
   def getChatMessages(self, chatDialog):
+    self.videoInfo = self.getPreloadData()[0]
     try:
       self.chatId = self.videoInfo['items'][0]['liveStreamingDetails']['activeLiveChatId']
     except:
       xbmcgui.Dialog().ok("Failed to get live chat", "No live chat available")
-    
+    self.stop = False
     parts = ['snippet,authorDetails']
     params = {'part': ''.join(parts), 'liveChatId': self.chatId}
 
     messages = v3Request(method='GET', path='liveChat/messages', params=params)
     
-    while not xbmc.Monitor().abortRequested():
+    while not self.stop:
       for item in messages['items']:
         msg = {}
         msg['author'] = item['authorDetails']['displayName']
@@ -90,10 +91,15 @@ class Provider(VideoPlatformBaseProvider.VideoPlatformBaseProvider):
       time.sleep(waitTime/1000)
       params['pageToken'] = messages['nextPageToken']
       messages = v3Request(method='GET', path='liveChat/messages', params=params)
+  def reload(self, videoId):
+    return self.getComments(videoId, False, False, True)
   def loadMore(self, videoId, isReply = False):
     return self.getComments(videoId, isReply, True)
-  def getComments(self, videoId, isReply = False, append=False):
-    stored = self.getStoredData()
+  def getComments(self, videoId, isReply = False, append=False, forceReload=False):
+    if(forceReload):
+      stored = 'None'
+    else:
+      stored = self.getStoredData()
     if(stored == 'None'):
       if(isReply):
         params = {'part': 'snippet',
@@ -108,12 +114,7 @@ class Provider(VideoPlatformBaseProvider.VideoPlatformBaseProvider):
                  'textFormat': 'plainText',
                  'maxResults': '100'}
         path = 'commentThreads'
-      provider, context, client = getCoreComponents()
-      commentsRaw = client.perform_v3_request(method='GET', path=path, params=params, no_login=True)
-      print('blaaaaaaaaaaaaaaaaaa')
-      print(type(commentsRaw))
-      print(str(commentsRaw))
-      print('blaaaaaaaaaaaaaaaaaa')
+      commentsRaw = self.client.perform_v3_request(method='GET', path=path, params=params, no_login=True)
       comments = self.parseComments(commentsRaw, videoId)
       stored = comments
       self.storeData(stored)
@@ -133,9 +134,8 @@ class Provider(VideoPlatformBaseProvider.VideoPlatformBaseProvider):
                  'maxResults': '100',
                  'nextPageToken': nextPageToken}
         path = 'commentThreads'
-      provider, context, client = getCoreComponents()
-      commentsRaw = client.perform_v3_request(method='GET', path=path, params=params, no_login=True)
-      comments = self.parseComments(commentsRaw, videoId)
+      commentsRaw = self.client.perform_v3_request(method='GET', path=path, params=params, no_login=True)
+      comments = self.parseComments(commentsRaw, videoId, isReply)
       if(isReply):
         stored['comments'][videoId]['children']['comments'].update(comments['comments'])
         stored['comments'][videoId]['children']['hasMore'] = comments['hasMore']
@@ -149,13 +149,15 @@ class Provider(VideoPlatformBaseProvider.VideoPlatformBaseProvider):
     result = {}
     result['id'] = parentId
     result['hasMore'] = False
+    print('%%%%%%%%%%%%%%%')
+    print(commentsRaw)
+    print('%%%%%%%%%%%%%%%')
+    items = commentsRaw['items']
     if(isReply):
-      items = commentsRaw
-      if(len(items) > replyCount):
+      if(len(items) < replyCount):
         result['hasMore'] = True
         result['nextPageToken'] = parentId
     else:
-      items = commentsRaw['items']
       if('nextPageToken' in  commentsRaw):
         result['hasMore'] = True
         result['nextPageToken'] = commentsRaw['nextPageToken']
@@ -178,7 +180,7 @@ class Provider(VideoPlatformBaseProvider.VideoPlatformBaseProvider):
       comment['id'] = item['id']
       comment['isReply'] = isReply
       if('replies' in item):
-        comment['children'] = self.parseComments(item['replies']['comments'], item['id'], True, comment['replyCount'])
+        comment['children'] = self.parseComments({'items': item['replies']['comments']}, item['id'], True, comment['replyCount'])
       comments[item['id']] = comment
     result['comments'] = comments
     return result
@@ -234,6 +236,8 @@ class Provider(VideoPlatformBaseProvider.VideoPlatformBaseProvider):
               'type': 'video',
               'maxResults': str(20)}
     return v3Request(method='GET', path='search', params=params)['items']
+  #def rateCommentFunction(self, commentId, rating, isReply):
+    
   def doAction(self, action, params):
     if('show_comment' == action):
       self.showComments(self.getComments(params['video_id']))
@@ -249,4 +253,5 @@ class Provider(VideoPlatformBaseProvider.VideoPlatformBaseProvider):
       self.showRelated(params['video_id'])
       return True
     return False
-  
+  def play(self, listItem):
+    self.executeBuiltin('RunPlugin('+listItem.getPath()+')')

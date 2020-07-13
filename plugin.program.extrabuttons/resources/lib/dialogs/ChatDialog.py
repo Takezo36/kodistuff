@@ -6,6 +6,9 @@ class ChatDialog(xbmcgui.WindowXMLDialog):
     if('replyFunction' in kvargs):
       self.setProperty('canReply', 'true')
       self.replyFunction = kvargs['replyFunction']
+    self.stopChat = None
+    if('stopChat' in kvargs):
+      self.stopChat = kvargs['stopChat']
     self.count = 0
     self.CANCEL_ID = 5555
     self.REPLY_ID = 7777
@@ -22,11 +25,12 @@ class ChatDialog(xbmcgui.WindowXMLDialog):
     self.getControl(50111).addItem(li)
     self.getControl(50111).selectItem(self.count)
     self.count += 1
-     
   def onClick(self, controlId):
     if controlId == self.REPLY_ID:
       self.showReplyDialog()
     elif controlId == self.CANCEL_ID:
+      if(self.stopChat != None):
+        self.stopChat()
       self.close()
   def showReplyDialog(self):
     kb = xbmc.Keyboard()

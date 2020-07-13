@@ -6,23 +6,11 @@
 
 	<controls>
 		<control type="image">
-			<top>680</top>
+			<top>730</top>
 			<left>0</left>
 			<width>1920</width>
-			<height>400</height>
+			<height>350</height>
 			<texture colordiffuse="dd000000">bg.png</texture>
-		</control>
-		<control type="label">
-			<top>680</top>
-			<left>0</left>
-			<width>1920</width>
-			<height>40</height>
-			<aligny>center</aligny>
-			<align>center</align>
-			<textcolor>white</textcolor>
-			<autoscroll>false</autoscroll>
-			<font>font36_title</font>
-			<label>Related Media</label>
 		</control>
 		<control type="group" id="33333">
 			<top>730</top>
@@ -58,9 +46,9 @@
 				<scrolltime tween="sine" easing="out">200</scrolltime>
 				<itemlayout width="300" height="300">
 					<control type="image">
-						<left>0</left>
+						<left>2</left>
 						<top>50</top>
-						<width>300</width>
+						<width>296</width>
 						<height>250</height>
 						<texture>$INFO[ListItem.Thumb]</texture>
 					</control> 
@@ -83,13 +71,13 @@
 						<height>300</height>
 						<left>0</left>
 						<top>0</top>
-						<visible>Control.HasFocus(50111)</visible>
+						<visible>Control.HasFocus(60111)</visible>
 						<texture colordiffuse="button_focus">lists/focus.png</texture>
 					</control>
 					<control type="image">
-						<left>0</left>
+						<left>2</left>
 						<top>50</top>
-						<width>300</width>
+						<width>296</width>
 						<height>250</height>
 						<texture>$INFO[ListItem.Thumb]</texture>
 					</control> 

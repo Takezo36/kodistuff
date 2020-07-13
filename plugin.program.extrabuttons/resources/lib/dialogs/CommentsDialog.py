@@ -7,10 +7,11 @@ class CommentsDialog(xbmcgui.WindowXMLDialog):
       self.setProperty('canReply', 'true')
       self.replyFunction = kvargs['replyFunction']
     self.loadMoreFunction = kvargs['loadMoreFunction']
+    self.reloadFunction = kvargs['reloadFunction']
     self.count = 0
     self.CANCEL_ID = 5555
+    self.RELOAD_ID = 6666
     self.REPLY_ID = 7777
-    self.LOAD_MORE_ID = 6666
     self.comments = kvargs['comments']
     self.currentPath = None
     xbmcgui.WindowXMLDialog.__init__(self, *args, **kvargs)
@@ -45,20 +46,18 @@ class CommentsDialog(xbmcgui.WindowXMLDialog):
       li.setArt({'thumb':thumb})
       listItems.append(li)
       count += 1
-      print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
-      print(str(comment))
-      print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
-    
+      hasMore = False
       if('children' in comment):
         comments = self.comments['comments'][parent]['children']['comments']
+        hasMore = self.comments['comments'][parent]['children']['hasMore']
       else:
         comments = {}
-      hasMore = self.comments['comments'][parent]['children']['hasMore']
+      
     else:
       hasMore = self.comments['hasMore']
       comments = self.comments['comments']
-    
-    for comment in comments.values():
+    for key in sorted(comments.keys(), reverse=True, key=lambda x: (comments[x]['date'])):
+      comment = comments[key]
       label = comment['author']
       label2 = comment['value']
       thumb = comment['thumb']
@@ -85,24 +84,23 @@ class CommentsDialog(xbmcgui.WindowXMLDialog):
     
     self.getControl(50111).addItems(listItems) 
   def onClick(self, controlId):
-    print("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
-    print(controlId)
-    print("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
     if controlId == self.REPLY_ID:
       self.showReplyDialog()
     elif controlId == self.CANCEL_ID:
       self.close()
+    elif controlId == self.RELOAD_ID:
+      self.comments = self.reloadFunction(self.comments['id'])
+      self.getControl(50111).reset()
+      self.setContent('HOME')
     else:
       pos = self.getControl(50111).getSelectedPosition()
       if(self.currentParent != 'HOME'):
-        print('vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv')
-        print(str(pos))
-        print('vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv')
         if(pos == 0):
           self.getControl(50111).reset()
           self.setContent('HOME')
         elif(pos == self.getControl(50111).size() - 1 and self.getControl(50111).getSelectedItem().getLabel() == 'Load More'):
           self.comments = self.loadMoreFunction(self.currentParent, True)
+          self.getControl(50111).reset()
           self.setContent(self.currentParent)
           self.getControl(50111).selectItem(pos)
         else:

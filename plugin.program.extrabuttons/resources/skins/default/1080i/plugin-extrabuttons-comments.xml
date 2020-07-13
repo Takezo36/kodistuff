@@ -28,6 +28,26 @@
 			<left>100</left>
 			<height>790</height>
 			<width>1720</width>
+			<control type="scrollbar" id="17">
+				<description>My first scroll bar control</description>
+				<left>500</left>
+				<top>0</top>
+				<width>50</width>
+				<height>800</height>
+				<visible>true</visible>
+				<texturesliderbackground colordiffuse="FFFFAAFF">mynormaltexture.png</texturesliderbackground>
+				<texturesliderbar colordiffuse="FFFFAAFF">mynormaltexture.png</texturesliderbar>
+				<texturesliderbarfocus colordiffuse="FFFFAAFF">mynormaltexture.png</texturesliderbarfocus>
+				<textureslidernib colordiffuse="FFFFAAFF">mynormaltexture.png</textureslidernib>
+				<textureslidernibfocus colordiffuse="FFFFAAFF">mynormaltexture.png</textureslidernibfocus>
+				<pulseonselect/>
+				<orientation>vertical</orientation>
+				<showonepage>false</showonepage>
+				<onup>2</onup>
+				<ondown>3</ondown>
+				<onleft>50111</onleft>
+				<onright>50111</onright>
+			</control>
 			<control type="list" id="50111">
 				<description>My first list container</description>
 				<left>0</left>
@@ -40,6 +60,8 @@
 				<visible>true</visible>
 				<onup>200</onup>
 				<ondown>87</ondown>
+				<onleft>17</onleft>
+				<onright>17</onright>
 				<viewtype label="3D list">list</viewtype>
 				<orientation>vertical</orientation>
 				<pagecontrol>25</pagecontrol>
@@ -121,7 +143,7 @@
 						<autoscroll>false</autoscroll>
 						<label>$INFO[ListItem.Property(likeCount)]</label>
 					</control>
-					<control type="label">
+					<control type="textbox">
 						<left>5</left>
 						<top>90</top>
 						<height>220</height>
@@ -210,16 +232,16 @@
 						<autoscroll>false</autoscroll>
 						<label>$INFO[ListItem.Property(likeCount)]</label>
 					</control>
-					<control type="label">
+					<control type="textbox">
 						<left>5</left>
 						<top>90</top>
 						<height>220</height>
 						<width>1720</width>
 						<aligny>top</aligny>
 						<align>left</align>
-						<autoscroll>false</autoscroll>
 						<wrapmultiline>true</wrapmultiline>
 						<textcolor>white</textcolor>
+						<autoscroll delay="3000" time="1000" repeat="10000">true</autoscroll>
 						<label>$INFO[ListItem.Label2]</label>
 					</control>
 				</focusedlayout>
@@ -269,7 +291,7 @@
 				<colordiffuse>FFFFFFFF</colordiffuse>
 				<texturefocus colordiffuse="button_focus">lists/focus.png</texturefocus>
 				<texturenofocus colordiffuse="FFFFAAFF">mynormaltexture.png</texturenofocus>
-				<label>Load more</label>
+				<label>Reload</label>
 				<wrapmultiline>true</wrapmultiline>
 				<font>font14</font>
 				<textcolor>FFFFFFFF</textcolor>

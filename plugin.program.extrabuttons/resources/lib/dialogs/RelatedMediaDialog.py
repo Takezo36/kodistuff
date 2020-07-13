@@ -4,7 +4,10 @@ import xbmcaddon
 class RelatedMediaDialog(xbmcgui.WindowXMLDialog):
   def __init__(self, *args, **kvargs):#xmlFilename="plugin-extrabuttons-comments.xml", scriptPath=xbmcaddon.Addon("plugin.program.extrabuttons").getAddonInfo('path'), defaultSkin="default", defaultRes="1080i", comments=None, loadMoreFunction = None, replyFunction = None):
     self.content = kvargs['content']
+    self.playFunction = kvargs['playFunction']
+    
     xbmcgui.WindowXMLDialog.__init__(self, *args, **kvargs)
+    
   
   def onInit(self):
     controlId = 60111
@@ -33,8 +36,9 @@ class RelatedMediaDialog(xbmcgui.WindowXMLDialog):
       
   def onClick(self, controlId):
     print('llllllllllllllllllllllllllllllllll')
-    print(controlId)
-    print(self.getCurrentListPosition())
+    print(self.getControl(60111).getSelectedItem())
     print('llllllllllllllllllllllllllllllllll')
-    listItem = self.getControl(controlId).getListItem(self.getCurrentListPosition())
-    xbmc.Player().play(listItem.getPath(), listItem)
+    listItem = self.getControl(60111).getSelectedItem()
+    self.close()
+    self.playFunction(listItem)
+    

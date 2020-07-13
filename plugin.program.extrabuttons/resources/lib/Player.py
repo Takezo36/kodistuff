@@ -10,6 +10,8 @@ import threading
 import _thread
 import random
 from multiprocessing.connection import Listener
+from multiprocessing.connection import Client
+
 #from multiprocessing.shared_memory import SharedMemory
 
 
@@ -64,10 +66,16 @@ class MyPlayer(Player):
       item['type'] = "plugin"
       item['pluginpath'] = xbmc.getInfoLabel('Player.Filenameandpath')
     return item
+  def stopThreads(self):
+    self.stop = True
+    port = 7777
+    address = ('localhost', port)
+    with Client(address) as conn:
+      conn.send(-1)
+      preload = conn.recv()
+      conn.close()
   def getProvider(self, mediaInfo):
-    print('mediainfo ' + str(mediaInfo))
     if(mediaInfo['type']=='plugin'):
-      print('providers ' + str(self.providers))
       for key,value in self.providers.items():
         match = re.search(key, mediaInfo['pluginpath'])
         if(match):
@@ -78,6 +86,7 @@ class MyPlayer(Player):
       return MovieProvider(mediaInfo['dbid'])
   def setupListener(self):
     listener = None
+    self.stop = False
     port = 7777
     count = 0
     #while listener == None:
@@ -88,7 +97,7 @@ class MyPlayer(Player):
     #  count += 1
     #self.publishPort(port)
     address = ('localhost', port)
-    while not xbmc.Monitor().abortRequested():
+    while not self.stop:
       with Listener(address) as listener:
         with listener.accept() as conn:
           value = conn.recv()
@@ -104,7 +113,13 @@ class MyPlayer(Player):
             self.tempStore = conn.recv()
           elif(value == 3):
             conn.send(self.tempStore)
-    #self.sharedMem.unlink()
+          elif(value == 4):
+            command = conn.recv()
+            xbmc.executebuiltin(command)
+          elif(value == 5):
+            url = conn.recv()
+            self.stop()
+            self.play(url)
   def publishPort(self, port):
     #self.sharedMem.buf[0] = port
     #self.sharedMem.close()
